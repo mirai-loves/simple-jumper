@@ -1,8 +1,15 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public sealed class GameManager : MonoBehaviour
 {
     [SerializeField] DoodlerContorller doodlerPrefab;
+
+    public static GameManager Instance {get; private set;}
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -14,5 +21,11 @@ public class GameManager : MonoBehaviour
         var doodler = Instantiate(doodlerPrefab);
         doodler.Init();
         
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+        DoodlerContorller.Instance.Die();
     }
 }

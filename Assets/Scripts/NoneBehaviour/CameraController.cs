@@ -3,6 +3,8 @@ using UnityEngine;
 public sealed class CameraController : MonoBehaviour
 {
 
+    private const float DEATH_HEIGHT = 5.2f;
+
     private void LateUpdate()
     {
         if (DoodlerContorller.Instance == null)
@@ -15,5 +17,7 @@ public sealed class CameraController : MonoBehaviour
            newPosition.y = target.position.y;
            transform.position = newPosition;
        }
+       else if (target.position.y < transform.position.y - DEATH_HEIGHT)
+            GameManager.Instance.GameOver();
     }
 }

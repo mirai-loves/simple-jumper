@@ -1,10 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class  DoodlerContorller : MonoBehaviour
+public sealed class  DoodlerContorller : MonoBehaviour
 {
     public static DoodlerContorller Instance {get; private set;}
-    [SerializeField] private float bounceForce = 10f;
     [SerializeField] private float movementSpeed = 6f;
     private Rigidbody2D rigidBody;
     //private IInputMethod input = AccelerometerInput.Instance;
@@ -33,10 +32,16 @@ public class  DoodlerContorller : MonoBehaviour
         rigidBody.velocity = velocity;
     }
 
-    public void BounceFromPlatform()
+    public void BounceFromPlatform(float bounceForce = 10f)
 	{
 		var velocity = rigidBody.velocity;
 	    velocity.y = bounceForce;
 	    rigidBody.velocity = velocity;	
+    }
+
+    public void Die()
+    {
+        DoodlerContorller.Instance = null;
+        Destroy(gameObject);
     }
 }
